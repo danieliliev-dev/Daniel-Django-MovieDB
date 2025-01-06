@@ -1,11 +1,16 @@
 from django.shortcuts import render, redirect
+from .forms import MovieForm
 from .models import Movie
-from django.http import HttpResponse
-
+from django.contrib import messages
+from django.http import HttpResponse, Http404
 
 def movie_listing(request):
     movies = Movie.objects.all()
     return render(request, 'movie/listing.html', {'movies': movies})
+
+def movies(request):
+    movies = Movie.objects.all()
+    return render(request, 'movies.html', {'movies': movies})
 
 def movie_detail(request, movie_id):
     try:
@@ -23,7 +28,12 @@ def add_movie(request):
     if request.method == 'POST':
         form = MovieForm(request.POST, request.FILES)
         if form.is_valid():
+            title = form.cleaned_data['title']
+            if Movie.objects.filter(title=title).exists():
+                messages.error(request, f"The movie '{title}' is already in the database.")
+                return redirect('add_movie')
             form.save()
+            messages.success(request, f"The movie '{title}' has been added successfully.")
             return redirect('movie_listing')
     else:
         form = MovieForm()

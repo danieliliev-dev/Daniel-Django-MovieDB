@@ -1,5 +1,5 @@
 """
-URL configuration for moviedb project.
+URL configuration for movie-django project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/5.1/topics/http/urls/
@@ -14,18 +14,16 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.contrib import admin
 from django.urls import path, include
 from . import views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('movie/', include('movie.urls'),
     path('', views.movie_listing, name='movie_listing'),
+    path('movies', views.movie_listing, name='movies'),
     path('movie/<int:movie_id>/', views.movie_detail, name='movie_detail'),
     path('search/', views.movie_search, name='movie_search'),
     path('add/', views.add_movie, name='add_movie'),
     path("accounts/", include("django.contrib.auth.urls"),
     path('toggle_favorite/<int:movie_id>/', views.toggle_favorite, name='toggle_favorite'),
-    path('category/<str:category>/', views.movie_category, name='movie_category'))),
+    path('category/<str:category>/', views.movie_category, name='movie_category')),
 ]

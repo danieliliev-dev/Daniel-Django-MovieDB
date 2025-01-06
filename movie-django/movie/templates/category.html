@@ -1,0 +1,18 @@
+<h1>Movies in Category: {{ category }}</h1>
+
+    {% if movies %}
+        <ul>
+            {% for movie in movies %}
+                <li>
+                    <strong>{{ movie.title }}</strong> - {{ movie.release_date }}
+                    <br>
+                    <p>{{ movie.description }}</p>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No movies found in this category.</p>
+    {% endif %}
+
+    <br>
+    <a href="{% url 'movie_listing' %}">Back to Movie Listings</a>
