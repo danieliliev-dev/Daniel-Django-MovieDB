@@ -1,4 +1,7 @@
 venv/
 __pycache__/
 *.sqlite3
+<<<<<<< HEAD:movieDB_django/.gitignore
 .DS_Store
+=======
+>>>>>>> c179c91b4282e6d2bbdf317463804bb46e4fefb0:movie-django/.gitignore
